@@ -26,3 +26,12 @@ jobs:
         with:
           branch: gh-pages
           folder: dist
+          target-folder: dist
+
+      - name: Copy
+        uses: andstor/copycat-action@v3
+        with:
+          src_path: /index.html
+          dst_branch: gh-pages
+          username: JosephAbbey
+          email: joseph@abbey1.org.uk

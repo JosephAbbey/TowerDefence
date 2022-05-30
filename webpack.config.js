@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const path = require("path");
+const dist = require("path").resolve(__dirname, "dist");
 
 module.exports = {
     mode: "development",
@@ -13,7 +13,7 @@ module.exports = {
     },
     output: {
         filename: "bundle.js",
-        path: path.resolve(__dirname, "dist"),
+        path: dist,
         publicPath: "/dist/",
     },
     resolve: {
