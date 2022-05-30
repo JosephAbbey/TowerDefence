@@ -21,21 +21,9 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Copy
-        uses: andstor/copycat-action@v3
-        with:
-          src_path: index.html
-          src_branch: main
-          dst_branch: gh-pages
-          dst_repo_name: TowerDefence
-          dst_owner: JosephAbbey
-          username: JosephAbbey
-          email: joseph@abbey1.org.uk
-
       - name: Deploy to GH Page
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
           branch: gh-pages
-          folder: dist
-          target-folder: dist
+          folder: .
 
