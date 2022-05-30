@@ -25,6 +25,7 @@ jobs:
         uses: andstor/copycat-action@v3
         with:
           src_path: index.html
+          src_branch: main
           dst_branch: gh-pages
           dst_repo_name: TowerDefence
           dst_owner: JosephAbbey
