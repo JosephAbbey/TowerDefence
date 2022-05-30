@@ -33,5 +33,6 @@ jobs:
         with:
           src_path: /index.html
           dst_branch: gh-pages
+          dst_owner: JosephAbbey
           username: JosephAbbey
           email: joseph@abbey1.org.uk
