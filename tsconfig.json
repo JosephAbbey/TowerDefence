@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "lib": ["es2015", "dom"],
+        "target": "es6",
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "checkJs": false
+    },
+    "exclude": ["./webpack.config.js"]
+}
