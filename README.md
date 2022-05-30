@@ -24,11 +24,11 @@ npm start
 Lint:
 
 ```shell
-npm lint
+npm run lint
 ```
 
 Build:
 
 ```shell
-npm build
+npm run build
 ```
