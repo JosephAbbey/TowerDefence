@@ -1,11 +1,13 @@
 import {
+    DirectionalLight,
     PerspectiveCamera,
-    PointLight,
     Scene,
     Vector3,
     WebGLRenderer,
 } from "three";
-import Cube from "./Cube";
+import World from "./World";
+
+import borg from "./worlds/0.world";
 
 export default class App {
     private readonly scene = new Scene();
@@ -20,17 +22,14 @@ export default class App {
         canvas: document.getElementById("main-canvas") as HTMLCanvasElement,
     });
 
-    private readonly cube = new Cube(
-        new Vector3(0, 0, 0),
-        new Vector3(10, 10, 10),
-        0xff0000
-    );
-
-    private readonly light = new PointLight(0xffffff, 1, 100);
+    private readonly world = new World(borg);
+    private readonly light = new DirectionalLight(0xffffff, 1);
 
     constructor() {
-        this.scene.add(this.cube);
+        this.scene.add(this.world);
+
         this.light.position.set(30, 30, 30);
+        this.light.lookAt(new Vector3(0, 0, 0));
         this.scene.add(this.light);
 
         this.camera.position.set(100, 100, 0);
@@ -52,7 +51,7 @@ export default class App {
     private render() {
         requestAnimationFrame(() => this.render());
 
-        this.cube.render();
+        this.world.render();
 
         this.renderer.render(this.scene, this.camera);
     }

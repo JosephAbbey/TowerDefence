@@ -8,5 +8,5 @@
         "forceConsistentCasingInFileNames": true,
         "checkJs": false
     },
-    "exclude": ["./webpack.config.js"]
+    "exclude": ["./webpack.config.js", "./webpack/*"]
 }

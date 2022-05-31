@@ -7,7 +7,8 @@
         "start": "webpack serve",
         "start:open": "webpack serve --open",
         "build": "webpack --mode=production",
-        "lint": "eslint \"**/*.ts\""
+        "lint": "eslint \"**/*.ts\"",
+        "build:json-schemas": "ts-json-schema-generator -p ./types/world.d.ts -t WorldFile -o ./types/world.d.json --minify"
     },
     "dependencies": {
         "three": "^0.140.2"
@@ -17,7 +18,9 @@
         "@typescript-eslint/eslint-plugin": "^5.3.1",
         "@typescript-eslint/parser": "^5.3.1",
         "eslint": "^7.32.0",
+        "json-loader": "^0.5.7",
         "raw-loader": "^4.0.2",
+        "ts-json-schema-generator": "^1.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.4.4",
         "webpack": "^5.64.0",

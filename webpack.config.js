@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
-const dist = require("path").resolve(__dirname, "dist");
+const path = require("path");
+const dist = path.resolve(__dirname, "dist");
 
 module.exports = {
     mode: "development",
@@ -14,10 +15,19 @@ module.exports = {
     output: {
         filename: "bundle.js",
         path: dist,
-        publicPath: "/dist/",
+        publicPath: process.env.ASSET_PATH || "/dist/",
     },
     resolve: {
-        extensions: [".ts", ".js", ".vert", ".frag"],
+        extensions: [".ts", ".js", ".vert", ".frag", ".world"],
+    },
+    resolveLoader: {
+        alias: {
+            "texture-loader": path.resolve(
+                __dirname,
+                "webpack/texture-loader.js"
+            ),
+            "world-loader": path.resolve(__dirname, "webpack/world-loader.js"),
+        },
     },
     module: {
         rules: [
@@ -29,6 +39,17 @@ module.exports = {
             {
                 test: /\.(vert|frag)$/i,
                 loader: "raw-loader",
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.world$/i,
+                use: "world-loader",
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.(png|jpg)$/i,
+                loader: "texture-loader",
+                exclude: /node_modules/,
             },
         ],
     },
