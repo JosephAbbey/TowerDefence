@@ -1,5 +1,5 @@
 {
     "$schema": "../../../types/world.d.json",
-    "name": "borg",
+    "name": "tutorial",
     "ground": "./textures/defaults/ground.jpg"
 }

@@ -7,7 +7,7 @@ import {
 } from "three";
 import World from "./World";
 
-import borg from "./worlds/0.world";
+import tutorial from "./worlds/0.world";
 
 export default class App {
     private readonly scene = new Scene();
@@ -22,7 +22,7 @@ export default class App {
         canvas: document.getElementById("main-canvas") as HTMLCanvasElement,
     });
 
-    private readonly world = new World(borg);
+    private readonly world = new World(tutorial);
     private readonly light = new DirectionalLight(0xffffff, 1);
 
     constructor() {
