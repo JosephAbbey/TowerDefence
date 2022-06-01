@@ -18,7 +18,18 @@ module.exports = {
         publicPath: process.env.ASSET_PATH || "/dist/",
     },
     resolve: {
-        extensions: [".ts", ".js", ".vert", ".frag", ".world"],
+        extensions: [
+            ".ts",
+            ".js",
+            ".vert",
+            ".frag",
+            ".world",
+            ".png",
+            ".jpg",
+            ".svg",
+            ".glb",
+            ".gltf",
+        ],
     },
     resolveLoader: {
         alias: {
@@ -26,6 +37,7 @@ module.exports = {
                 __dirname,
                 "webpack/texture-loader.js"
             ),
+            "model-loader": path.resolve(__dirname, "webpack/model-loader.js"),
             "world-loader": path.resolve(__dirname, "webpack/world-loader.js"),
         },
     },
@@ -47,8 +59,13 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
-                test: /\.(png|jpg)$/i,
+                test: /\.(png|jpg|svg)$/i,
                 loader: "texture-loader",
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.(glb|gltf)$/i,
+                loader: "model-loader",
                 exclude: /node_modules/,
             },
         ],

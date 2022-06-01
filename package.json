@@ -11,8 +11,7 @@
         "build:json-schemas": "ts-json-schema-generator -p ./types/world.d.ts -t WorldFile -o ./types/world.d.json --minify"
     },
     "dependencies": {
-        "three": "^0.140.2",
-        "@three-ts/orbit-controls": "^1.4.7"
+        "three": "^0.140.2"
     },
     "devDependencies": {
         "@types/three": "^0.134.0",

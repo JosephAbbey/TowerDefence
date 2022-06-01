@@ -7,13 +7,13 @@ import {
 } from "three";
 
 export default class Ground extends Mesh {
-    constructor(position: Vector3, size: Vector3, texture: Texture) {
+    constructor(position: Vector3, size: Vector3, texture: Promise<Texture>) {
         super();
 
         this.position.add(position);
         this.geometry = new PlaneGeometry(size.x, size.y, size.z);
-        this.material = new MeshPhysicalMaterial({
-            map: texture,
+        texture.then((map) => {
+            this.material = new MeshPhysicalMaterial({ map });
         });
         this.rotateX(-Math.PI / 2);
     }

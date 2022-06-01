@@ -19,6 +19,25 @@ declare module "*.png" {
 }
 
 declare module "*.jpg" {
-    const content: import("three").Texture;
+    const content: Promise<import("three").Texture>;
+    export default content;
+}
+
+declare module "*.svg" {
+    const content: Promise<import("three").Texture>;
+    export default content;
+}
+
+declare module "*.glb" {
+    const content: Promise<
+        import("three/examples/jsm/loaders/GLTFLoader").GLTF
+    >;
+    export default content;
+}
+
+declare module "*.gltf" {
+    const content: Promise<
+        import("three/examples/jsm/loaders/GLTFLoader").GLTF
+    >;
     export default content;
 }

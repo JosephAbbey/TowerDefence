@@ -13,5 +13,5 @@ export interface WorldFile {
 
 export default interface WorldOptions {
     name: string;
-    ground: Texture;
+    ground: Promise<Texture>;
 }
