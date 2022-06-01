@@ -5,6 +5,7 @@ import {
     Vector3,
     WebGLRenderer,
 } from "three";
+import { MainPlayer } from "./Player";
 import World from "./World";
 
 import tutorial from "./worlds/0.world";
@@ -24,6 +25,12 @@ export default class App {
 
     private readonly world = new World(tutorial);
     private readonly light = new DirectionalLight(0xffffff, 1);
+
+    private readonly mainPlayer = new MainPlayer(
+        this.camera,
+        this.scene,
+        this.renderer.domElement
+    );
 
     constructor() {
         this.scene.add(this.world);
@@ -52,6 +59,7 @@ export default class App {
         requestAnimationFrame(() => this.render());
 
         this.world.render();
+        this.mainPlayer.render();
 
         this.renderer.render(this.scene, this.camera);
     }

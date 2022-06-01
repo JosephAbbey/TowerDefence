@@ -1,5 +1,6 @@
 {
     "files.associations": {
         "*.world": "json"
-    }
+    },
+    "cSpell.words": ["mphue"]
 }
