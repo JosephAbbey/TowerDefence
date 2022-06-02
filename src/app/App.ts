@@ -1,3 +1,6 @@
+var gravity = 0.02
+var speedY = 0
+this.world.position.add(new Vector3(0, speedY, 0));
 import {
     DirectionalLight,
     Euler,
@@ -104,8 +107,9 @@ export default class App {
         if (this.keysDown.has("d")) {
             this.world.position.add(new Vector3(0, 0, 0.1));
         }
-        if (this.keysDown.has("Space")) {
-        this.world.position.add(new Vector3(0, -0.1, 0));
+        if (this.keysDown.has("q")) {
+            speedY += 0.1
+            var jumping = true
         }
 
         this.world.render();
@@ -113,4 +117,7 @@ export default class App {
 
         this.renderer.render(this.scene, this.camera);
     }
+}
+if (jumping) {
+    speedY = speedY + gravity
 }
