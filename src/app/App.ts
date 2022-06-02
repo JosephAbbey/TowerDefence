@@ -32,7 +32,7 @@ export default class App {
 
     private readonly mainPlayer = new Player();
     private readonly world = new World(tutorial);
-    private readonly light = new DirectionalLight(0xffffff, 1);
+    private readonly light = new DirectionalLight(0xffffff, 2);
 
     private readonly keysDown = new Set<string>();
 
@@ -45,7 +45,7 @@ export default class App {
         this.light.position.set(50, 70, 0);
         this.light.lookAt(new Vector3(0, 0, 0));
         this.scene.add(this.light);
-        this.scene.add(new HemisphereLight());
+        this.scene.add(new HemisphereLight(undefined, undefined, 0.3));
 
         this.controls.enablePan = false;
 

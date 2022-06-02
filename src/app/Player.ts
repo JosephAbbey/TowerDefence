@@ -6,7 +6,6 @@ export default class Player extends Object3D {
         super();
 
         Model.then((model) => {
-            console.log(model);
             this.add(model.scene);
         });
     }

@@ -3,18 +3,14 @@ const { readFileSync } = require("fs");
 const path = require("path");
 
 module.exports = function (source) {
-    return `const{GLTFLoader}=require("three/examples/jsm/loaders/GLTFLoader");module.exports.default=${loadTexture(
+    return `const{GLTFLoader}=require("three/examples/jsm/loaders/GLTFLoader");module.exports.default=${loadModel(
         this,
         this.resourcePath,
         source
     )};`;
 };
 
-const loadTexture = (module.exports.loadTexture = function (
-    loader,
-    file,
-    source
-) {
+const loadModel = (module.exports.loadModel = function (loader, file, source) {
     if (source === undefined)
         source = readFileSync(path.resolve("./src/app/", file));
 
