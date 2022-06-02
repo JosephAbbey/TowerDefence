@@ -2,5 +2,6 @@
     "files.associations": {
         "*.world": "json"
     },
-    "cSpell.words": ["mphue"]
+    "cSpell.words": ["mphue"],
+    "github-actions.workflows.pinned.workflows": [".github/workflows/main.yml"]
 }

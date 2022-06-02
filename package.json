@@ -12,7 +12,7 @@
     },
     "dependencies": {
         "svg-path-parser": "^1.1.0",
-        "three": "^0.140.2"
+        "three": "^0.141.0"
     },
     "devDependencies": {
         "@types/svg-path-parser": "^1.1.3",
