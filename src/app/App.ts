@@ -1,9 +1,5 @@
-var gravity = 0.02
-var speedY = 0
-this.world.position.add(new Vector3(0, speedY, 0));
 import {
     DirectionalLight,
-    Euler,
     HemisphereLight,
     PerspectiveCamera,
     Scene,
@@ -37,10 +33,7 @@ export default class App {
     private readonly world = new World(tutorial);
     private readonly light = new DirectionalLight(0xffffff, 2);
 
-    private readonly keysDown = new Set<string>();
-
     constructor() {
-        this.mainPlayer.position.add(new Vector3(0, 1.2));
         this.scene.add(this.mainPlayer);
 
         this.scene.add(this.world);
@@ -59,8 +52,6 @@ export default class App {
         this.renderer.setClearColor(0x000000);
 
         window.addEventListener("resize", () => this.adjustCanvasSize());
-        window.addEventListener("keydown", (e) => this.onkeydown(e));
-        window.addEventListener("keyup", (e) => this.onkeyup(e));
         this.render();
     }
 
@@ -70,54 +61,14 @@ export default class App {
         this.camera.updateProjectionMatrix();
     }
 
-    private onkeydown(e: KeyboardEvent) {
-        this.keysDown.add(e.key);
-        switch (e.key) {
-            case "w":
-                this.mainPlayer.rotation.copy(new Euler(0, -Math.PI / 2, 0));
-                break;
-            case "a":
-                this.mainPlayer.rotation.copy(new Euler(0, 0, 0));
-                break;
-            case "s":
-                this.mainPlayer.rotation.copy(new Euler(0, Math.PI / 2, 0));
-                break;
-            case "d":
-                this.mainPlayer.rotation.copy(new Euler(0, Math.PI, 0));
-                break;
-        }
-    }
-
-    private onkeyup(e: KeyboardEvent) {
-        this.keysDown.delete(e.key);
-    }
-
     private render() {
         requestAnimationFrame(() => this.render());
-
-        if (this.keysDown.has("w")) {
-            this.world.position.add(new Vector3(0.1, 0, 0));
-        }
-        if (this.keysDown.has("a")) {
-            this.world.position.add(new Vector3(0, 0, -0.1));
-        }
-        if (this.keysDown.has("s")) {
-            this.world.position.add(new Vector3(-0.1, 0, 0));
-        }
-        if (this.keysDown.has("d")) {
-            this.world.position.add(new Vector3(0, 0, 0.1));
-        }
-        if (this.keysDown.has("q")) {
-            speedY += 0.1
-            var jumping = true
-        }
 
         this.world.render();
         this.mainPlayer.render();
 
+        this.world.position.copy(this.mainPlayer.pos).multiplyScalar(-1);
+
         this.renderer.render(this.scene, this.camera);
     }
-}
-if (jumping) {
-    speedY = speedY + gravity
 }
