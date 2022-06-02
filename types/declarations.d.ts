@@ -13,6 +13,11 @@ declare module "*.world" {
     export default content;
 }
 
+declare module "*.turret" {
+    const content: import("./turret").default;
+    export default content;
+}
+
 declare module "*.png" {
     const content: import("three").Texture;
     export default content;

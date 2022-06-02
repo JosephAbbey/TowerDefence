@@ -39,6 +39,10 @@ module.exports = {
             ),
             "model-loader": path.resolve(__dirname, "webpack/model-loader.js"),
             "world-loader": path.resolve(__dirname, "webpack/world-loader.js"),
+            "turret-loader": path.resolve(
+                __dirname,
+                "webpack/turret-loader.js"
+            ),
         },
     },
     module: {
@@ -56,6 +60,11 @@ module.exports = {
             {
                 test: /\.world$/i,
                 use: "world-loader",
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.turret$/i,
+                use: "turret-loader",
                 exclude: /node_modules/,
             },
             {

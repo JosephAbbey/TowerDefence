@@ -1,0 +1,1 @@
+{"$ref":"#/definitions/TurretFile","$schema":"http://json-schema.org/draft-07/schema#","definitions":{"TurretFile":{"additionalProperties":false,"properties":{"$schema":{"type":"string"}},"required":["$schema"],"type":"object"}}}
