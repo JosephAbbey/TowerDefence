@@ -56,7 +56,7 @@ export default class Player extends Object3D {
 
         if (this.keysDown.has("d")) this.pos.add(new Vector3(0, 0, -0.1));
 
-        if (this.pos.y == 1.2) this.jumping = false;
+        if (this.pos.y == 0) this.jumping = false;
         if (this.keysDown.has(" ") && !this.jumping) {
             this.jumping = true;
             this.acceleration.add(new Vector3(0, 10.5, 0));
@@ -68,7 +68,7 @@ export default class Player extends Object3D {
         this.velocity.add(this.acceleration);
         this.pos
             .add(this.velocity)
-            .clamp(new Vector3(-50, 1.2, -50), new Vector3(50, 100, 50));
+            .clamp(new Vector3(-50, 0, -50), new Vector3(50, 100, 50));
         this.acceleration.multiplyScalar(0);
     }
 }
