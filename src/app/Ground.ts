@@ -1,4 +1,5 @@
 import {
+    DoubleSide,
     Mesh,
     MeshPhysicalMaterial,
     PlaneGeometry,
@@ -13,7 +14,7 @@ export default class Ground extends Mesh {
         this.position.add(position);
         this.geometry = new PlaneGeometry(size.x, size.y, size.z);
         texture.then((map) => {
-            this.material = new MeshPhysicalMaterial({ map });
+            this.material = new MeshPhysicalMaterial({ map, side: DoubleSide });
         });
         this.rotateX(-Math.PI / 2);
     }

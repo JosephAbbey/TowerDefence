@@ -11,8 +11,31 @@ module.exports = function (source) {
 };
 
 const loadModel = (module.exports.loadModel = function (loader, file, source) {
+    var p = path.dirname(path.resolve("./src/app/", file));
     if (source === undefined)
         source = readFileSync(path.resolve("./src/app/", file));
+
+    if (file.endsWith(".gltf")) {
+        var b = path.basename(file.replace(".gltf", ".bin"));
+        loader.emitFile(
+            b,
+            readFileSync(
+                path.resolve("./src/app/", file.replace(".gltf", ".bin"))
+            ),
+            null,
+            { sourceFilename: b }
+        );
+        var data = JSON.parse(source);
+        for (var image in data.images) {
+            var a = data.images[image].uri;
+            var fn = path.basename(a);
+            loader.emitFile(fn, readFileSync(path.resolve(p, a)), null, {
+                sourceFilename: fn,
+            });
+            data.images[image].uri = fn;
+        }
+        source = JSON.stringify(data);
+    }
 
     const filename = path.basename(file);
     loader.emitFile(filename, source, null, { sourceFilename: filename });

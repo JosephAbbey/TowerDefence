@@ -37,7 +37,7 @@ export default class App {
     private readonly keysDown = new Set<string>();
 
     constructor() {
-        this.mainPlayer.position.add(new Vector3(0, 1.1));
+        this.mainPlayer.position.add(new Vector3(0, 1.2));
         this.scene.add(this.mainPlayer);
 
         this.scene.add(this.world);

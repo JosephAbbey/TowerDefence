@@ -1,5 +1,5 @@
 import { Object3D } from "three";
-import Model from "./models/player.glb";
+import Model from "./models/player.gltf";
 
 export default class Player extends Object3D {
     constructor() {
