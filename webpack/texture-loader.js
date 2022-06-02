@@ -15,8 +15,7 @@ const loadTexture = (module.exports.loadTexture = function (
     file,
     source
 ) {
-    if (source === undefined)
-        source = readFileSync(path.resolve("./src/app/", file));
+    if (source === undefined) source = readFileSync(file);
 
     const filename = path.basename(file);
     loader.emitFile(filename, source, null, { sourceFilename: filename });

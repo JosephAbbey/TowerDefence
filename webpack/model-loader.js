@@ -11,20 +11,14 @@ module.exports = function (source) {
 };
 
 const loadModel = (module.exports.loadModel = function (loader, file, source) {
-    var p = path.dirname(path.resolve("./src/app/", file));
-    if (source === undefined)
-        source = readFileSync(path.resolve("./src/app/", file));
+    var p = path.dirname(file);
+    if (source === undefined) source = readFileSync(file);
 
     if (file.endsWith(".gltf")) {
         var b = path.basename(file.replace(".gltf", ".bin"));
-        loader.emitFile(
-            b,
-            readFileSync(
-                path.resolve("./src/app/", file.replace(".gltf", ".bin"))
-            ),
-            null,
-            { sourceFilename: b }
-        );
+        loader.emitFile(b, readFileSync(file.replace(".gltf", ".bin")), null, {
+            sourceFilename: b,
+        });
         var data = JSON.parse(source);
         for (var image in data.images) {
             var a = data.images[image].uri;

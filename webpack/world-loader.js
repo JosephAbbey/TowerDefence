@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
+const path = require("path");
 const { loadTexture } = require("./texture-loader");
-const { parseSVG: path, makeAbsolute } = require("svg-path-parser");
+const { parseSVG, makeAbsolute } = require("svg-path-parser");
 
 module.exports = function (source) {
     const output = {};
@@ -39,6 +40,7 @@ const stringify = (module.exports.stringify = function (object) {
 
 const WorldOptionsResolutions = (module.exports.WorldOptionsResolutions = {
     name: (l, f) => `"${f}"`,
-    ground: loadTexture,
-    path: (l, f) => JSON.stringify(makeAbsolute(path(f))),
+    ground: (l, f) =>
+        loadTexture(l, path.resolve(path.dirname(l.resourcePath), f)),
+    path: (l, f) => JSON.stringify(makeAbsolute(parseSVG(f))),
 });

@@ -1,6 +1,6 @@
 {
     "$schema": "../../../types/world.d.json",
     "name": "tutorial",
-    "ground": "./textures/defaults/ground.jpg",
+    "ground": "../textures/defaults/ground.jpg",
     "path": "M 45 37.5 L -35 37.5 C -50 37.5 -50 12.5 -35 12.5 L 35 12.5 C 50 12.5 50 -12.5 35 -12.5 L -35 -12.5 C -50 -12.5 -50 -37.5 -35 -37.5 L 45 -37.5 Z"
 }
