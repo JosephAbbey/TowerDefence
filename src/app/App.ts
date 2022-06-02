@@ -104,6 +104,9 @@ export default class App {
         if (this.keysDown.has("d")) {
             this.world.position.add(new Vector3(0, 0, 0.1));
         }
+        if (this.keysDown.has("space")) {
+        this.world.position.add(new Vector3(0, 1, 0));
+        }
 
         this.world.render();
         this.mainPlayer.render();
