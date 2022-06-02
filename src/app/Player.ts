@@ -56,7 +56,7 @@ export default class Player extends Object3D {
 
         if (this.keysDown.has("d")) this.pos.add(new Vector3(0, 0, -0.1));
 
-        // Quirky Jump Algorithm: Copyright (c) 2020, Joseph and Will
+        // Quirky Jump Algorithm: Copyright (c) 2022, Joseph and Will
         if (this.pos.y == 0) this.jumping = false;
         if (this.keysDown.has(" ") && !this.jumping) {
             this.jumping = true;
