@@ -4,6 +4,7 @@ import Enemy from "./Enemy";
 import Ground from "./Ground";
 import Path from "./Path";
 import Turret from "./Turret";
+import TeslaGun from "./turrets/0.turret"
 
 export default class World extends Object3D {
     static subDivisions = 20;
@@ -42,7 +43,7 @@ export default class World extends Object3D {
     }
 
     addTurret(gridPosition: Vector3) {
-        const turret = new Turret(gridPosition);
+        const turret = new Turret(TeslaGun, gridPosition);
         if (!this.turrets[gridPosition.x][gridPosition.y][gridPosition.z])
             this.turrets[gridPosition.x][gridPosition.y][gridPosition.z] =
                 turret;
