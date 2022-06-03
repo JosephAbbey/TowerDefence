@@ -23,7 +23,7 @@ export default class Player extends Object3D {
         this.position.add(new Vector3(0, 1.2));
 
         Model.then((model) => {
-            this.add(model.scene);
+            this.add(model.scene.clone());
         });
 
         window.addEventListener("mousemove", (e) => this.onmousemove(e));

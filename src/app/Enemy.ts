@@ -1,10 +1,5 @@
-import {
-    BoxGeometry,
-    Mesh,
-    MeshPhysicalMaterial,
-    Object3D,
-    Vector3,
-} from "three";
+import { Object3D, Vector3 } from "three";
+import Model from "./models/enemy.gltf";
 
 export function scalarProjection(position: Vector3, a: Vector3, b: Vector3) {
     a = a.clone();
@@ -30,12 +25,9 @@ export default class Enemy extends Object3D {
         this.position.copy(path[0]);
         this.position.add(new Vector3(0, 2, (Math.random() - 0.5) * 16));
 
-        this.add(
-            new Mesh(
-                new BoxGeometry(1, 1, 1),
-                new MeshPhysicalMaterial({ color: 0xff0000 })
-            )
-        );
+        Model.then((model) => {
+            this.add(model.scene.clone());
+        });
     }
 
     addForce(v: Vector3) {
