@@ -5,6 +5,7 @@ import Ground from "./Ground";
 import Path from "./Path";
 
 export default class World extends Object3D {
+    readonly environment = new Object3D();
     private readonly ground: Ground;
     private readonly path: Path;
     private readonly enemies: Enemy[] = [];
@@ -12,12 +13,14 @@ export default class World extends Object3D {
     constructor(options: WorldOptions) {
         super();
 
+        this.add(this.environment);
+
         this.ground = new Ground(
             new Vector3(0, 0, 0),
             new Vector3(100, 100, 100),
             options.ground
         );
-        this.add(this.ground);
+        this.environment.add(this.ground);
 
         this.path = new Path(options.path);
         this.path.position.add(new Vector3(0, 2, 0));

@@ -14,7 +14,7 @@ import tutorial from "./worlds/0.world";
 
 export default class App {
     private readonly scene = new Scene();
-    private readonly camera = new PerspectiveCamera(
+    readonly camera = new PerspectiveCamera(
         45,
         innerWidth / innerHeight,
         0.1,
@@ -29,8 +29,8 @@ export default class App {
         this.renderer.domElement
     );
 
-    private readonly mainPlayer = new Player();
-    private readonly world = new World(tutorial);
+    private readonly mainPlayer = new Player(this);
+    readonly world = new World(tutorial);
     private readonly light = new DirectionalLight(0xffffff, 2);
 
     constructor() {
