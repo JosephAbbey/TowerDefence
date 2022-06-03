@@ -68,7 +68,7 @@ export default class Player extends Object3D {
 
     private onmousedown(e: MouseEvent) {
         if (e.button == 2) {
-            var p = this.mouseWorldPosition;
+            var p = this.mouseWorldPosition?.divideScalar(5)?.round();
             if (p !== undefined) this.app.world.add(new Turret(p));
         }
     }

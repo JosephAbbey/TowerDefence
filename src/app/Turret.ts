@@ -7,14 +7,16 @@ import {
 } from "three";
 
 export default class Turret extends Object3D {
-    constructor(position: Vector3) {
+    constructor(private readonly gridPosition: Vector3) {
         super();
 
-        this.position.copy(position);
+        this.position
+            .copy(gridPosition.multiplyScalar(5))
+            .add(new Vector3(0, 2, 0));
 
         this.add(
             new Mesh(
-                new BoxGeometry(1, 2, 1),
+                new BoxGeometry(2, 4, 2),
                 new MeshPhysicalMaterial({ color: 0x00ff00 })
             )
         );
