@@ -14,4 +14,6 @@ module.exports = function (source) {
     )};`;
 };
 
-const WorldOptionsResolutions = (module.exports.WorldOptionsResolutions = {});
+const WorldOptionsResolutions = (module.exports.WorldOptionsResolutions = {
+    range: (l, f) => f,
+});

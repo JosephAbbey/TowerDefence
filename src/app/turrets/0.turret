@@ -1,3 +1,4 @@
 {
-    "$schema": "../../../types/turret.d.json"
+    "$schema": "../../../types/turret.d.json",
+    "range": 10
 }

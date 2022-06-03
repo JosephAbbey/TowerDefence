@@ -112,6 +112,7 @@ export default class Player extends Object3D {
     }
 
     private onkeydown(e: KeyboardEvent) {
+        if (e.repeat) return;
         this.keysDown.add(e.key);
         switch (e.key) {
             case "w":
@@ -143,6 +144,17 @@ export default class Player extends Object3D {
         if (this.keysDown.has("s")) this.pos.add(new Vector3(0.1, 0, 0));
 
         if (this.keysDown.has("d")) this.pos.add(new Vector3(0, 0, -0.1));
+
+        if (
+            this.keysDown.has("i") &&
+            this.keysDown.has("m") &&
+            this.keysDown.has("a") &&
+            this.keysDown.has("d") &&
+            this.keysDown.has("e") &&
+            this.keysDown.has("v")
+        ) {
+            window.localStorage.setItem("devSkin", prompt("Name:") || "");
+        }
 
         // Quirky Jump Algorithm: Copyright (c) 2022, Joseph and Will
         if (this.pos.y == 0) this.jumping = false;
