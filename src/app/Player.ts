@@ -15,6 +15,9 @@ import will from "./textures/will.jpg";
 import Turret from "./Turret";
 import World from "./World";
 
+const mphue = window.localStorage.getItem("mphue");
+var devSkin = window.localStorage.getItem("devSkin");
+
 // eslint-disable-next-line no-unused-vars
 export function traverse(object: Object3D, callback: (object: Mesh) => any) {
     //@ts-expect-error
@@ -48,8 +51,7 @@ export default class Player extends Object3D {
             will,
         };
         var skin;
-        var s = window.localStorage.getItem("devSkin");
-        if (typeof s == "string") skin = devSkins[s];
+        if (typeof devSkin == "string") skin = devSkins[devSkin];
 
         Promise.all<[Promise<GLTF>, Promise<Texture> | undefined]>([
             playerModel,
@@ -60,14 +62,13 @@ export default class Player extends Object3D {
                 //@ts-expect-error
                 if (texture) o.material.map.source = texture.source;
                 else {
-                    var hs = window.localStorage.getItem("mphue");
                     var h: number;
-                    if (!hs)
+                    if (mphue) h = parseFloat(mphue);
+                    else
                         window.localStorage.setItem(
                             "mphue",
                             (h = Math.random()).toString()
                         );
-                    else h = parseFloat(hs);
                     //@ts-expect-error
                     o.material.color.setHSL(h, 0.5, 0.5);
                 }
@@ -146,14 +147,15 @@ export default class Player extends Object3D {
         if (this.keysDown.has("d")) this.pos.add(new Vector3(0, 0, -0.1));
 
         if (
+            !devSkin &&
             this.keysDown.has("i") &&
-            this.keysDown.has("m") &&
-            this.keysDown.has("a") &&
             this.keysDown.has("d") &&
             this.keysDown.has("e") &&
             this.keysDown.has("v")
         ) {
-            window.localStorage.setItem("devSkin", prompt("Name:") || "");
+            devSkin = prompt("Name:") || "";
+            window.localStorage.setItem("devSkin", devSkin);
+            window.location.reload();
         }
 
         // Quirky Jump Algorithm: Copyright (c) 2022, Joseph and Will
