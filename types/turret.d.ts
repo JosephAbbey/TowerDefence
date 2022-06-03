@@ -1,7 +1,8 @@
 export interface TurretFile {
     $schema: string;
     /**
-     *  @min 0
+     * The range of the turret.
+     * @minimum 0
      */
     range: number;
 }
