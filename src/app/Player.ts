@@ -1,9 +1,27 @@
-import { Euler, Object3D, Raycaster, Texture, Vector2, Vector3 } from "three";
+import {
+    Euler,
+    Mesh,
+    Object3D,
+    Raycaster,
+    Texture,
+    Vector2,
+    Vector3,
+} from "three";
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 import App from "./App";
 import playerModel from "./models/player.gltf";
-import playerTexture from "./textures/will.jpg";
+import joseph from "./textures/joseph.jpg";
+import will from "./textures/will.jpg";
 import Turret from "./Turret";
+
+// eslint-disable-next-line no-unused-vars
+export function traverse(object: Object3D, callback: (object: Mesh) => any) {
+    //@ts-expect-error
+    if (object.type === "Mesh") callback(object);
+    for (var o of object.children) {
+        traverse(o, callback);
+    }
+}
 
 export default class Player extends Object3D {
     private readonly app: App;
@@ -24,17 +42,24 @@ export default class Player extends Object3D {
 
         this.position.add(new Vector3(0, 1.2));
 
-        Promise.all<[Promise<GLTF>, Promise<Texture>]>([
+        var devSkins: { [key: string]: Promise<Texture> } = {
+            joseph,
+            will,
+        };
+        var skin;
+        if (typeof window.localStorage.devSkin === "string")
+            skin = devSkins[window.localStorage.devSkin];
+
+        Promise.all<[Promise<GLTF>, Promise<Texture> | undefined]>([
             playerModel,
-            playerTexture,
+            skin,
         ]).then(([model, texture]) => {
             var m = model.scene.clone();
-            var t = texture.clone();
-            m.traverse((o) => {
-                if (o.type == "Mesh") {
-                    //@ts-expect-error
-                    o.material.map.source = t.source;
-                }
+            traverse(m, (o) => {
+                //@ts-expect-error
+                if (texture) o.material.map.source = texture.source;
+                //@ts-expect-error
+                else o.material.color.setHSL(Math.random(), 0.5, 0.5);
             });
             this.add(m);
         });

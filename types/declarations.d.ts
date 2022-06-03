@@ -19,7 +19,7 @@ declare module "*.turret" {
 }
 
 declare module "*.png" {
-    const content: import("three").Texture;
+    const content: Promise<import("three").Texture>;
     export default content;
 }
 
