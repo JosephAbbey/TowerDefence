@@ -20,7 +20,7 @@ const loadTexture = (module.exports.loadTexture = function (
     const filename = path.basename(file);
     loader.emitFile(filename, source, null, { sourceFilename: filename });
 
-    return `new Promise((resolve,reject)=>new TextureLoader().load("dist/${filename}",resolve,undefined,reject))`;
+    return `new Promise((r,x)=>new TextureLoader().load("dist/${filename}",r,undefined,x))`;
 });
 
 module.exports.raw = true;

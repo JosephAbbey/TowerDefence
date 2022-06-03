@@ -1,5 +1,5 @@
 import { Object3D, Vector3 } from "three";
-import Model from "./models/enemy.gltf";
+import enemyModel from "./models/enemy.gltf";
 
 export function scalarProjection(position: Vector3, a: Vector3, b: Vector3) {
     a = a.clone();
@@ -25,7 +25,7 @@ export default class Enemy extends Object3D {
         this.position.copy(path[0]);
         this.position.add(new Vector3(0, 2, (Math.random() - 0.5) * 16));
 
-        Model.then((model) => {
+        enemyModel.then((model) => {
             this.add(model.scene.clone());
         });
     }

@@ -19,7 +19,7 @@ const loadModel = (module.exports.loadModel = function (loader, file, source) {
         loader.emitFile(b, readFileSync(file.replace(".gltf", ".bin")), null, {
             sourceFilename: b,
         });
-        var data = JSON.parse(source);
+        var data = JSON.parse(source.toString());
         for (var image in data.images) {
             var a = data.images[image].uri;
             var fn = path.basename(a);

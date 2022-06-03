@@ -1,6 +1,8 @@
-import { Euler, Object3D, Raycaster, Vector2, Vector3 } from "three";
+import { Euler, Object3D, Raycaster, Texture, Vector2, Vector3 } from "three";
+import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 import App from "./App";
-import Model from "./models/player.gltf";
+import playerModel from "./models/player.gltf";
+import playerTexture from "./textures/will.jpg";
 import Turret from "./Turret";
 
 export default class Player extends Object3D {
@@ -22,8 +24,19 @@ export default class Player extends Object3D {
 
         this.position.add(new Vector3(0, 1.2));
 
-        Model.then((model) => {
-            this.add(model.scene.clone());
+        Promise.all<[Promise<GLTF>, Promise<Texture>]>([
+            playerModel,
+            playerTexture,
+        ]).then(([model, texture]) => {
+            var m = model.scene.clone();
+            var t = texture.clone();
+            m.traverse((o) => {
+                if (o.type == "Mesh") {
+                    //@ts-expect-error
+                    o.material.map.source = t.source;
+                }
+            });
+            this.add(m);
         });
 
         window.addEventListener("mousemove", (e) => this.onmousemove(e));
@@ -54,9 +67,10 @@ export default class Player extends Object3D {
     }
 
     private onmousedown(e: MouseEvent) {
-        console.log(e, this.mouseWorldPosition);
-        var p = this.mouseWorldPosition;
-        if (p !== undefined) this.app.world.add(new Turret(p));
+        if (e.button == 2) {
+            var p = this.mouseWorldPosition;
+            if (p !== undefined) this.app.world.add(new Turret(p));
+        }
     }
 
     private onkeydown(e: KeyboardEvent) {
