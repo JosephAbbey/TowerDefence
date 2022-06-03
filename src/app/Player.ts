@@ -48,8 +48,8 @@ export default class Player extends Object3D {
             will,
         };
         var skin;
-        if (typeof window.localStorage.devSkin === "string")
-            skin = devSkins[window.localStorage.devSkin];
+        var s = window.localStorage.getItem("devSkin");
+        if (typeof s == "string") skin = devSkins[s];
 
         Promise.all<[Promise<GLTF>, Promise<Texture> | undefined]>([
             playerModel,
@@ -59,8 +59,18 @@ export default class Player extends Object3D {
             traverse(m, (o) => {
                 //@ts-expect-error
                 if (texture) o.material.map.source = texture.source;
-                //@ts-expect-error
-                else o.material.color.setHSL(Math.random(), 0.5, 0.5);
+                else {
+                    var hs = window.localStorage.getItem("mphue");
+                    var h: number;
+                    if (!hs)
+                        window.localStorage.setItem(
+                            "mphue",
+                            (h = Math.random()).toString()
+                        );
+                    else h = parseFloat(hs);
+                    //@ts-expect-error
+                    o.material.color.setHSL(h, 0.5, 0.5);
+                }
             });
             this.add(m);
         });
