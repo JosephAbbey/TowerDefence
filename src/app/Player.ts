@@ -13,6 +13,7 @@ import playerModel from "./models/player.gltf";
 import joseph from "./textures/joseph.jpg";
 import will from "./textures/will.jpg";
 import Turret from "./Turret";
+import World from "./World";
 
 // eslint-disable-next-line no-unused-vars
 export function traverse(object: Object3D, callback: (object: Mesh) => any) {
@@ -93,7 +94,9 @@ export default class Player extends Object3D {
 
     private onmousedown(e: MouseEvent) {
         if (e.button == 2) {
-            var p = this.mouseWorldPosition?.divideScalar(5)?.round();
+            var p = this.mouseWorldPosition
+                ?.divideScalar(100 / World.subDivisions)
+                ?.round();
             if (p !== undefined) this.app.world.add(new Turret(p));
         }
     }

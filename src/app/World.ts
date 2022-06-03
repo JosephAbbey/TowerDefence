@@ -6,10 +6,15 @@ import Path from "./Path";
 import Turret from "./Turret";
 
 export default class World extends Object3D {
+    static subDivisions = 20;
     readonly environment = new Object3D();
     private readonly ground: Ground;
-    private readonly turrets: (Turret | null)[][][] = Array(~~(100 / 5)).map(
-        () => Array(~~(100 / 5)).map(() => Array(~~(100 / 5)).map(() => null))
+    private readonly turrets: (Turret | null)[][][] = Array(
+        World.subDivisions
+    ).map(() =>
+        Array(World.subDivisions).map(() =>
+            Array(World.subDivisions).map(() => null)
+        )
     );
     private readonly path: Path;
     private readonly enemies: Enemy[] = [];
