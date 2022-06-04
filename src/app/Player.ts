@@ -116,20 +116,6 @@ export default class Player extends Object3D {
     private onkeydown(e: KeyboardEvent) {
         if (e.repeat) return;
         this.keysDown.add(e.key);
-        switch (e.key) {
-            case "w":
-                this.rotation.copy(new Euler(0, -Math.PI / 2, 0));
-                break;
-            case "a":
-                this.rotation.copy(new Euler(0, 0, 0));
-                break;
-            case "s":
-                this.rotation.copy(new Euler(0, Math.PI / 2, 0));
-                break;
-            case "d":
-                this.rotation.copy(new Euler(0, Math.PI, 0));
-                break;
-        }
     }
 
     private onkeyup(e: KeyboardEvent) {
@@ -139,13 +125,28 @@ export default class Player extends Object3D {
     render() {
         this.acceleration.add(new Vector3(0, -0.1, 0));
 
-        if (this.keysDown.has("w")) this.pos.add(new Vector3(-0.1, 0, 0));
+        this.rotation.copy(
+            new Euler(
+                0,
+                (Math.PI / 2) *
+                    ((Math.round(
+                        this.app.controls.getAzimuthalAngle() / (Math.PI / 2)
+                    ) +
+                        2) %
+                        4),
+                0
+            )
+        );
 
-        if (this.keysDown.has("a")) this.pos.add(new Vector3(0, 0, 0.1));
+        var m = new Vector3();
+        if (this.keysDown.has("w")) m.add(new Vector3(0, 0, 0.1));
+        if (this.keysDown.has("a")) m.add(new Vector3(0.1, 0, 0));
+        if (this.keysDown.has("s")) m.add(new Vector3(0, 0, -0.1));
+        if (this.keysDown.has("d")) m.add(new Vector3(-0.1, 0));
+        m.normalize().multiplyScalar(0.1).applyEuler(this.rotation);
 
-        if (this.keysDown.has("s")) this.pos.add(new Vector3(0.1, 0, 0));
-
-        if (this.keysDown.has("d")) this.pos.add(new Vector3(0, 0, -0.1));
+        this.pos.add(m);
+        this.rotation.copy(new Euler(0, Math.atan2(m.x, m.z), 0));
 
         if (
             !devSkin &&
