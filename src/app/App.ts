@@ -24,7 +24,7 @@ export default class App {
         antialias: true,
         canvas: document.getElementById("main-canvas") as HTMLCanvasElement,
     });
-    private readonly controls = new OrbitControls(
+    readonly controls = new OrbitControls(
         this.camera,
         this.renderer.domElement
     );

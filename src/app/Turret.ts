@@ -8,13 +8,21 @@ import {
 import TurretOptions from "../../types/turret";
 import World from "./World";
 
-export default class Turret extends Object3D {
-    private readonly range: number
+import gun from "./turrets/0.turret";
+export const turrets = {
+    gun,
+};
 
-    constructor(options: TurretOptions, private readonly gridPosition: Vector3) {
+export default class Turret extends Object3D {
+    private readonly range: number;
+
+    constructor(
+        options: TurretOptions,
+        private readonly gridPosition: Vector3
+    ) {
         super();
 
-        this.range = options.range
+        this.range = options.range;
 
         this.position
             .copy(gridPosition.multiplyScalar(100 / World.subDivisions))
@@ -27,6 +35,4 @@ export default class Turret extends Object3D {
             )
         );
     }
-
 }
-

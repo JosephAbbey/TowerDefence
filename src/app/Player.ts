@@ -9,11 +9,12 @@ import {
 } from "three";
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 import App from "./App";
+import Turret, { turrets } from "./Turret";
+import World from "./World";
+
 import playerModel from "./models/player.gltf";
 import joseph from "./textures/joseph.jpg";
 import will from "./textures/will.jpg";
-import Turret from "./Turret";
-import World from "./World";
 
 const mphue = window.localStorage.getItem("mphue");
 var devSkin = window.localStorage.getItem("devSkin");
@@ -108,7 +109,7 @@ export default class Player extends Object3D {
             var p = this.mouseWorldPosition
                 ?.divideScalar(100 / World.subDivisions)
                 ?.round();
-            if (p !== undefined) this.app.world.add(new Turret(p));
+            if (p !== undefined) this.app.world.add(new Turret(turrets.gun, p));
         }
     }
 
