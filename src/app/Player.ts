@@ -20,7 +20,6 @@ import will from "./textures/will.jpg";
 const mphue = window.localStorage.getItem("mphue");
 var devSkin = window.localStorage.getItem("devSkin");
 
-// eslint-disable-next-line no-unused-vars
 export function traverse(object: Object3D, callback: (object: Mesh) => any) {
     //@ts-expect-error
     if (object.type === "Mesh") callback(object);
@@ -45,6 +44,23 @@ export default class Player extends Object3D {
 
     constructor(app: App) {
         super();
+
+        var roomCode = prompt("Room Code:");
+        if (roomCode) this.socket.emit("join", roomCode);
+
+        this.socket.on("error", (e: { message: string }) => {
+            alert(e.message);
+        });
+
+        var a = Math.random();
+        console.log(a);
+        this.socket.emit("message", { message: `number: ${a}` });
+
+        this.socket.on(
+            "message",
+            (message: { from: string; message: string }) =>
+                console.log(`${message.from}: ${message.message}`)
+        );
 
         this.app = app;
 
