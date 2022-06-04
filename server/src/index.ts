@@ -15,6 +15,9 @@ const io = new Server(http, {
 
 io.on("connection", function (socket: any) {
     console.log("a user connected");
+    socket.on("disconnect", function () {
+        console.log("a user disconnected");
+    });
 });
 
 http.listen(3000, function () {
