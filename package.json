@@ -12,7 +12,8 @@
     },
     "dependencies": {
         "svg-path-parser": "^1.1.0",
-        "three": "^0.141.0"
+        "three": "^0.141.0",
+        "socket.io-client": "^4.5.1"
     },
     "devDependencies": {
         "@types/svg-path-parser": "^1.1.3",

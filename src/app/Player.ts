@@ -8,6 +8,7 @@ import {
     Vector3,
 } from "three";
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
+import { io } from "socket.io-client";
 import App from "./App";
 import Turret, { turrets } from "./Turret";
 import World from "./World";
@@ -39,6 +40,8 @@ export default class Player extends Object3D {
     private readonly keysDown = new Set<string>();
     readonly mousePosition = new Vector2();
     private readonly raycaster = new Raycaster();
+
+    private readonly socket = io("http://localhost:3000");
 
     constructor(app: App) {
         super();
