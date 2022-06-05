@@ -8,7 +8,10 @@
         "start:open": "webpack serve --open",
         "build": "webpack --mode=production",
         "lint": "eslint \"**/*.ts\"",
-        "build:json-schemas": "ts-json-schema-generator -p ./types/world.d.ts -t WorldFile -o ./types/world.d.json --minify && ts-json-schema-generator -p ./types/turret.d.ts -t TurretFile -o ./types/turret.d.json --minify"
+        "build:json-schemas": "ts-json-schema-generator -p ./types/world.d.ts -t WorldFile -o ./types/world.d.json --minify && ts-json-schema-generator -p ./types/turret.d.ts -t TurretFile -o ./types/turret.d.json --minify",
+        "start:server": "cd server && npm start",
+        "build:server": "cd server && npm run build",
+        "lint:server": "cd server && npm run lint"
     },
     "dependencies": {
         "acorn": "^8.7.1",
