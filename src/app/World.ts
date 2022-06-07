@@ -4,10 +4,11 @@ import Enemy from "./Enemy";
 import Ground from "./Ground";
 import Path from "./Path";
 import Turret from "./Turret";
-import TeslaGun from "./turrets/0.turret"
+import TeslaGun from "./turrets/0.turret";
 
 export default class World extends Object3D {
     static subDivisions = 20;
+
     readonly environment = new Object3D();
     private readonly ground: Ground;
     private readonly turrets: (Turret | null)[][][] = Array(

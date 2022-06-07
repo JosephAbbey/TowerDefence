@@ -50,4 +50,5 @@ jobs:
         with:
           branch: heroku
           folder: server/dist
+          target-folder: dist
           clean: true
