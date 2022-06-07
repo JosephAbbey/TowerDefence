@@ -29,3 +29,28 @@ jobs:
           target-folder: dist
           clean: true
           clean-exclude: index.html
+
+  build-server:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+          
+      - name: Move
+        run: cd server
+
+      - name: Install
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Heroku
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: heroku
+          folder: dist
+          clean: true
