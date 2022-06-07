@@ -12,6 +12,7 @@ import { io } from "socket.io-client";
 import App from "./App";
 import Turret, { turrets } from "./Turret";
 import World from "./World";
+import EmitPromise, { EmitResolver } from "./EmitPromise";
 
 import playerModel from "./models/player.gltf";
 import joseph from "./textures/joseph.jpg";
@@ -46,20 +47,24 @@ export default class Player extends Object3D {
         super();
 
         var roomCode = prompt("Room Code:");
-        if (roomCode) this.socket.emit("join", roomCode);
-
-        this.socket.on("error", (e: { message: string }) => {
-            alert(e.message);
-        });
+        if (roomCode)
+            EmitPromise<string, undefined>(this.socket, "join", roomCode).catch(
+                (e: { message: string }) => alert(e.message)
+            );
 
         var a = Math.random();
         console.log(a);
-        this.socket.emit("message", { message: `number: ${a}` });
+        EmitPromise<{ message: string }, undefined>(this.socket, "message", {
+            message: `number: ${a}`,
+        });
 
-        this.socket.on(
+        EmitResolver<{ from: string; message: string }, undefined>(
+            this.socket,
             "message",
-            (message: { from: string; message: string }) =>
-                console.log(`${message.from}: ${message.message}`)
+            (message, resolve, reject) => {
+                console.log(`${message.from}: ${message.message}`);
+                resolve(undefined);
+            }
         );
 
         this.app = app;
