@@ -51,3 +51,4 @@ jobs:
           branch: heroku
           folder: server/dist
           clean: true
+          clean-exclude: Procfile
