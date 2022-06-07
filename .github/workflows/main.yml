@@ -52,3 +52,4 @@ jobs:
           folder: server/dist
           target-folder: dist
           clean: true
+          clean-exclude: Procfile
