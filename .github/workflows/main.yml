@@ -39,12 +39,6 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install
-        run: cd server && npm install
-
-      - name: Build
-        run: npm run build:server
-
       - name: Deploy to Heroku
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:

@@ -4,8 +4,7 @@
     "license": "MIT",
     "repository": "github:JosephAbbey/TowerDefence",
     "scripts": {
-        "test": "tsc && node dist/index.js",
-        "start": "node dist/index.js",
+        "start": "tsc && node dist/index.js",
         "build": "tsc",
         "lint": "eslint \"**/*.ts\""
     },
