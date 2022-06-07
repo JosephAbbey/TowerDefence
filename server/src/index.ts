@@ -3,6 +3,7 @@ import { Server, Socket } from "socket.io";
 import { Server as HTTPServer } from "http";
 import { env } from "process";
 import EmitPromise, { EmitResolver } from "./EmitPromise";
+import path = require("path");
 
 const app = express();
 app.set("port", env.PORT || 3000);
@@ -27,10 +28,13 @@ app.use(function (req, res, next) {
     next();
 });
 
+declare var __dirname: string;
+app.use(express.static(path.resolve(__dirname, "../../")));
+
 const http = new HTTPServer(app);
 const io = new Server(http, {
     cors: {
-        origin: ["http://localhost:9000", "https://josephabbey.github.io"],
+        origin: ["http://localhost:9000", "http://localhost:3000"],
         methods: ["GET", "POST"],
     },
 });
