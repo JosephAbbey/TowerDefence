@@ -45,7 +45,7 @@ export default class App {
 
         this.controls.enablePan = false;
 
-        this.camera.position.set(0, 100, -100);
+        this.camera.position.set(0, 100, 100);
         this.camera.lookAt(new Vector3(0, 0, 0));
 
         this.renderer.setSize(innerWidth, innerHeight);
