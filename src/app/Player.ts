@@ -134,11 +134,11 @@ export default class Player extends Object3D {
 
     private onkeydown(e: KeyboardEvent) {
         if (e.repeat) return;
-        this.keysDown.add(e.key);
+        this.keysDown.add(e.key.toLowerCase());
     }
 
     private onkeyup(e: KeyboardEvent) {
-        this.keysDown.delete(e.key);
+        this.keysDown.delete(e.key.toLowerCase());
     }
 
     render() {
