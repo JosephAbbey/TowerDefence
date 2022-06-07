@@ -145,6 +145,6 @@ io.of("/").adapter.on("create-room", (room) => {
     }
 });
 
-http.listen(3000, function () {
+http.listen(env.PORT || 3000, function () {
     console.log(`listening on *:${env.PORT || 3000}`);
 });
