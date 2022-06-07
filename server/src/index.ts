@@ -6,6 +6,10 @@ import EmitPromise, { EmitResolver } from "./EmitPromise";
 
 const app = express();
 app.set("port", env.PORT || 3000);
+app.all("*", function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+});
 
 const http = new HTTPServer(app);
 const io = new Server(http, {
