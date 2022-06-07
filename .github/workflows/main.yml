@@ -49,5 +49,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
           branch: heroku
-          folder: servre/dist
+          folder: server/dist
           clean: true
