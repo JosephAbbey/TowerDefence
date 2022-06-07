@@ -80,6 +80,6 @@ module.exports = {
         ],
     },
     watchOptions: {
-        ignored: /node_modules|server/,
+        ignored: /node_modules|server|dist/,
     },
 };
