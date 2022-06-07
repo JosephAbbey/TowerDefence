@@ -8,6 +8,22 @@ const app = express();
 app.set("port", env.PORT || 3000);
 app.all("*", function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
+    );
+    next();
+});
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin,X-Requested-With,Content-Type,Accept,content-type,application/json"
+    );
     next();
 });
 
@@ -130,5 +146,5 @@ io.of("/").adapter.on("create-room", (room) => {
 });
 
 http.listen(3000, function () {
-    console.log("listening on *:3000");
+    console.log(`listening on *:${env.PORT || 3000}`);
 });
