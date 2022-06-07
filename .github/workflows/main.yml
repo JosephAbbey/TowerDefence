@@ -49,7 +49,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
           branch: heroku
-          folder: server/dist
-          target-folder: dist
+          folder: server
           clean: true
-          clean-exclude: Procfile
