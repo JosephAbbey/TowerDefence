@@ -11,6 +11,7 @@ const http = new HTTPServer(app);
 const io = new Server(http, {
     cors: {
         origin: ["http://localhost:9000", "https://josephabbey.github.io"],
+        methods: ["GET", "POST"],
     },
 });
 

@@ -41,7 +41,11 @@ export default class Player extends Object3D {
     readonly mousePosition = new Vector2();
     private readonly raycaster = new Raycaster();
 
-    private readonly socket = io("http://localhost:3000");
+    private readonly socket = io(
+        new URLSearchParams(window.location.search).has("dev")
+            ? "http://localhost:3000"
+            : "https://towerdefence.herokuapp.com/"
+    );
 
     constructor(app: App) {
         super();
@@ -139,11 +143,11 @@ export default class Player extends Object3D {
 
     private onkeydown(e: KeyboardEvent) {
         if (e.repeat) return;
-        this.keysDown.add(e.key.toLowerCase());
+        this.keysDown.add(e.key);
     }
 
     private onkeyup(e: KeyboardEvent) {
-        this.keysDown.delete(e.key.toLowerCase());
+        this.keysDown.delete(e.key);
     }
 
     render() {
