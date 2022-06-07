@@ -11,6 +11,7 @@ export default class World extends Object3D {
 
     readonly environment = new Object3D();
     private readonly ground: Ground;
+
     private readonly turrets: (Turret | null)[][][] = Array(
         World.subDivisions
     ).map(() =>
