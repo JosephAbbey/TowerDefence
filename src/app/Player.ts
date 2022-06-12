@@ -44,7 +44,12 @@ export default class Player extends Object3D {
     private readonly socket = io(
         new URLSearchParams(window.location.search).has("dev")
             ? "http://localhost:3000"
-            : "https://towerdefence.herokuapp.com/"
+            : "https://towerdefence.herokuapp.com/",
+        {
+            auth: {
+                skin: devSkin || mphue,
+            },
+        }
     );
 
     constructor(app: App) {
@@ -70,6 +75,17 @@ export default class Player extends Object3D {
                 resolve(undefined);
             }
         );
+
+        EmitResolver<
+            undefined,
+            {
+                x: number;
+                y: number;
+                z: number;
+            }
+        >(this.socket, "position", (_, resolve, reject) => {
+            resolve(this.pos);
+        });
 
         this.app = app;
 

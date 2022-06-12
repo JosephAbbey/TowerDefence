@@ -40,8 +40,23 @@ const io = new Server(http, {
 });
 
 class Player {
+    room?: Room;
+
+    lastPosition: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
+    get position(): Promise<{ x: number; y: number; z: number }> {
+        return EmitPromise<undefined, { x: number; y: number; z: number }>(
+            this.socket,
+            "position",
+            undefined
+        ).then((d) => (this.lastPosition = d[0]));
+    }
+
+    skin: string | number;
+
     constructor(public readonly socket: Socket) {
         console.log(socket.id, "connected");
+
+        this.skin = socket.handshake.auth.skin;
 
         this.on<undefined, undefined>("disconnect", (_, resolve, reject) => {
             players.delete(socket.id);
@@ -55,14 +70,24 @@ class Player {
                     message: `You are already in room '${roomCode}'`,
                 });
             } else if (!rooms.has(roomCode)) {
-                //TODO: remove this test code and make a create room button
-                this.socket.join(roomCode);
                 reject({
                     message: `Room '${roomCode}' doesn't exist`,
                 });
             } else {
-                this.socket.join(roomCode);
-                rooms.get(roomCode)!.players.add(this.socket.id);
+                rooms.get(roomCode)!.join(this);
+                console.log(this.socket.id, "joined room", roomCode);
+                resolve(undefined);
+            }
+        });
+
+        this.on<string, undefined>("create", (roomCode, resolve, reject) => {
+            if (rooms.has(roomCode)) {
+                reject({
+                    message: `Room '${roomCode}' already exists`,
+                });
+            } else {
+                rooms.set(roomCode, new Room(roomCode, this));
+                rooms.get(roomCode)!.join(this);
                 console.log(this.socket.id, "joined room", roomCode);
                 resolve(undefined);
             }
@@ -129,7 +154,26 @@ class Player {
 }
 
 class Room {
-    readonly players = new Set<string>();
+    readonly players = new Set<Player>();
+
+    constructor(public readonly roomCode: string, public owner: Player) {
+        console.log(owner.socket.id, "created room", roomCode);
+    }
+
+    add(player: Player) {
+        this.players.add(player);
+        if (this.players.size == 0) this.owner = player;
+    }
+
+    join(player: Player) {
+        this.add(player);
+        player.socket.join(this.roomCode);
+        player.room = this;
+    }
+
+    to(from: Player) {
+        return from.socket.to(this.roomCode);
+    }
 }
 
 const players = new Map<string, Player>();
@@ -138,15 +182,6 @@ const rooms = new Map<string, Room>();
 
 io.on("connection", (socket: Socket) => {
     players.set(socket.id, new Player(socket));
-});
-
-io.of("/").adapter.on("create-room", (room) => {
-    if (!players.has(room)) {
-        var r = new Room();
-        rooms.set(room, r);
-        r.players.add(room);
-        console.log(`room ${room} was created`);
-    }
 });
 
 http.listen(env.PORT || 3000, function () {

@@ -4,7 +4,7 @@
     "license": "MIT",
     "repository": "github:JosephAbbey/TowerDefence",
     "scripts": {
-        "test": "tsc && node dist/index.js",
+        "test": "nodemon --ext ts --watch src/**/*.ts --exec \"tsc && node dist/index.js\"",
         "start": "node dist/index.js",
         "build": "tsc",
         "lint": "eslint \"**/*.ts\""
@@ -19,7 +19,9 @@
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.3.1",
         "@typescript-eslint/parser": "^5.3.1",
-        "eslint": "^7.32.0"
+        "eslint": "^7.32.0",
+        "nodemon": "^2.0.16",
+        "ts-node": "^10.8.1"
     },
     "engines": {
         "node": "16.x"
