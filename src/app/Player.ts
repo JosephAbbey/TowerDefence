@@ -13,6 +13,7 @@ import App from "./App";
 import Turret, { turrets } from "./Turret";
 import World from "./World";
 import EmitPromise, { EmitResolver } from "./EmitPromise";
+import { CommandMadeAbsolute } from "svg-path-parser";
 
 import playerModel from "./models/player.gltf";
 import joseph from "./textures/joseph.jpg";
@@ -58,7 +59,26 @@ export default class Player extends Object3D {
         var roomCode = prompt("Room Code:");
         if (roomCode)
             EmitPromise<string, undefined>(this.socket, "join", roomCode).catch(
-                (e: { message: string }) => alert(e.message)
+                // (e: { message: string }) => alert(e.message)
+                (e: { message: string }) =>
+                    roomCode
+                        ? EmitPromise<
+                              {
+                                  roomCode: string;
+                                  data: {
+                                      name: string;
+                                      path: CommandMadeAbsolute[];
+                                  };
+                              },
+                              undefined
+                          >(this.socket, "create", {
+                              roomCode,
+                              data: {
+                                  name: this.app.world.options.name,
+                                  path: this.app.world.options.path,
+                              },
+                          }).catch((e: { message: string }) => alert(e.message))
+                        : alert(e.message)
             );
 
         var a = Math.random();

@@ -22,7 +22,7 @@ export default class World extends Object3D {
     private readonly path: Path;
     private readonly enemies: Enemy[] = [];
 
-    constructor(options: WorldOptions) {
+    constructor(public readonly options: WorldOptions) {
         super();
 
         this.add(this.environment);

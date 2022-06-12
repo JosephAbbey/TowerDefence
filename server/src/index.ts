@@ -4,6 +4,8 @@ import { Server as HTTPServer } from "http";
 import { env } from "process";
 import EmitPromise, { EmitResolver } from "./EmitPromise";
 import path = require("path");
+import { WorldFile } from "../../types/world";
+import { CommandMadeAbsolute } from "svg-path-parser";
 
 const app = express();
 app.set("port", env.PORT || 3000);
@@ -80,18 +82,24 @@ class Player {
             }
         });
 
-        this.on<string, undefined>("create", (roomCode, resolve, reject) => {
-            if (rooms.has(roomCode)) {
-                reject({
-                    message: `Room '${roomCode}' already exists`,
-                });
-            } else {
-                rooms.set(roomCode, new Room(roomCode, this));
-                rooms.get(roomCode)!.join(this);
-                console.log(this.socket.id, "joined room", roomCode);
-                resolve(undefined);
+        this.on<{ roomCode: string; data: WorldData }, undefined>(
+            "create",
+            (data, resolve, reject) => {
+                if (rooms.has(data.roomCode)) {
+                    reject({
+                        message: `Room '${data.roomCode}' already exists`,
+                    });
+                } else {
+                    rooms.set(
+                        data.roomCode,
+                        new Room(data.roomCode, this, data.data)
+                    );
+                    rooms.get(data.roomCode)!.join(this);
+                    console.log(this.socket.id, "joined room", data.roomCode);
+                    resolve(undefined);
+                }
             }
-        });
+        );
 
         this.on<{ to?: string; message: string }, undefined>(
             "message",
@@ -139,6 +147,11 @@ class Player {
                 }
             }
         );
+
+        this.socket.on("disconnect", () => {
+            if (this.room) this.room.remove(this);
+            players.delete(this.socket.id);
+        });
     }
 
     on<D, T>(
@@ -153,11 +166,20 @@ class Player {
     }
 }
 
+interface WorldData {
+    name: string;
+    path: CommandMadeAbsolute[];
+}
+
 class Room {
     readonly players = new Set<Player>();
 
-    constructor(public readonly roomCode: string, public owner: Player) {
-        console.log(owner.socket.id, "created room", roomCode);
+    constructor(
+        public readonly roomCode: string,
+        public owner: Player,
+        public data: WorldData
+    ) {
+        console.log(owner.socket.id, "created room", roomCode, "with", data);
     }
 
     add(player: Player) {
@@ -169,6 +191,19 @@ class Room {
         this.add(player);
         player.socket.join(this.roomCode);
         player.room = this;
+    }
+
+    remove(player: Player) {
+        this.players.delete(player);
+        if (this.owner === player)
+            this.owner = this.players.keys().next().value;
+        if (this.players.size == 0) rooms.delete(this.roomCode);
+    }
+
+    leave(player: Player) {
+        this.remove(player);
+        player.socket.leave(this.roomCode);
+        player.room = undefined;
     }
 
     to(from: Player) {
