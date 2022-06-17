@@ -58,6 +58,11 @@ export default class Player extends Object3D {
         super();
 
         var roomCode = prompt("Room Code:");
+        if (roomCode === "idev") {
+            devSkin = prompt("Name:") || "";
+            window.localStorage.setItem("devSkin", devSkin);
+            window.location.reload();
+        }
         if (roomCode)
             EmitPromise<string, undefined>(this.socket, "join", roomCode).catch(
                 // (e: { message: string }) => alert(e.message)
@@ -213,18 +218,6 @@ export default class Player extends Object3D {
 
         this.pos.add(m);
         this.rotation.copy(new Euler(0, Math.atan2(m.x, m.z), 0));
-
-        if (
-            !devSkin &&
-            this.keysDown.has("i") &&
-            this.keysDown.has("d") &&
-            this.keysDown.has("e") &&
-            this.keysDown.has("v")
-        ) {
-            devSkin = prompt("Name:") || "";
-            window.localStorage.setItem("devSkin", devSkin);
-            window.location.reload();
-        }
 
         // Quirky Jump Algorithm: Copyright (c) 2022, Joseph and Will
         if (this.pos.y == 0) this.jumping = false;
