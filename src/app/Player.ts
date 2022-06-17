@@ -19,6 +19,7 @@ import playerModel from "./models/player.gltf";
 import joseph from "./textures/joseph.jpg";
 import will from "./textures/will.jpg";
 import sus from "./textures/sus.jpg";
+import micah from "./textures/micah.jpg";
 
 const mphue = window.localStorage.getItem("mphue");
 var devSkin = window.localStorage.getItem("devSkin");
@@ -121,6 +122,7 @@ export default class Player extends Object3D {
             joseph,
             will,
             sus,
+            micah,
         };
         var skin;
         if (typeof devSkin == "string") skin = devSkins[devSkin];
