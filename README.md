@@ -1,6 +1,6 @@
 # TowerDefence
 
-[![Heroku](https://heroku-badge.herokuapp.com/?app=towerdefence)]
+![Heroku](https://heroku-badge.herokuapp.com/?app=towerdefence)
 
 ## Requirements
 
