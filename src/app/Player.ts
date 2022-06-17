@@ -18,7 +18,6 @@ import { CommandMadeAbsolute } from "svg-path-parser";
 import playerModel from "./models/player.gltf";
 import joseph from "./textures/joseph.jpg";
 import will from "./textures/will.jpg";
-import ethan from "./textures/ethan.jpg"
 
 const mphue = window.localStorage.getItem("mphue");
 var devSkin = window.localStorage.getItem("devSkin");
@@ -120,7 +119,6 @@ export default class Player extends Object3D {
         var devSkins: { [key: string]: Promise<Texture> } = {
             joseph,
             will,
-            ethan,
         };
         var skin;
         if (typeof devSkin == "string") skin = devSkins[devSkin];
