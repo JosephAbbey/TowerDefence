@@ -119,6 +119,7 @@ export default class Player extends Object3D {
         var devSkins: { [key: string]: Promise<Texture> } = {
             joseph,
             will,
+            sus,
         };
         var skin;
         if (typeof devSkin == "string") skin = devSkins[devSkin];
