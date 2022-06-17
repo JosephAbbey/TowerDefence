@@ -18,6 +18,7 @@ import { CommandMadeAbsolute } from "svg-path-parser";
 import playerModel from "./models/player.gltf";
 import joseph from "./textures/joseph.jpg";
 import will from "./textures/will.jpg";
+import sus from "./textures/sus.jpg";
 
 const mphue = window.localStorage.getItem("mphue");
 var devSkin = window.localStorage.getItem("devSkin");
