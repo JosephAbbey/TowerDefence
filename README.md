@@ -1,5 +1,7 @@
 # TowerDefence
 
+[![Heroku](https://heroku-badge.herokuapp.com/?app=towerdefence)]
+
 ## Requirements
 
 - node.js
