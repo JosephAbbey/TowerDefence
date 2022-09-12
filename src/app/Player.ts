@@ -234,7 +234,7 @@ export default class Player extends Object3D {
         this.velocity.add(this.acceleration);
         this.pos
             .add(this.velocity)
-            .clamp(new Vector3(-50, 0, -50), new Vector3(50, 100, 50));
+            .clamp(new Vector3(-50, 0, -50), new Vector3(50, 1000, 50));
         this.acceleration.multiplyScalar(0);
     }
 }
