@@ -17,7 +17,7 @@
         "build": "npm run build:client && npm run build:server"
     },
     "dependencies": {
-        "acorn": "^8.7.1",
+        "acorn": "^8.8.2",
         "socket.io-client": "^4.5.1",
         "svg-path-parser": "^1.1.0",
         "@types/svg-path-parser": "^1.1.3",
